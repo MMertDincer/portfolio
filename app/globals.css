@@ -2,26 +2,144 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
+@layer base{
+  body {
+    @apply font-primary bg-primary text-white leading-loose;
+  }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+  .h1 {
+    @apply text-[48px] xl:text-[80px] leading-[1.1] font-semibold;
+  }
+
+  .h2 {
+    @apply text-[36px] xl:text-[48px] leading-[1.1] font-semibold;
+  }
+
+  .h3 {
+    @apply text-[20px] xl:text-[24px] leading-[1.1] font-semibold;
+  }
+
+  .text-outline {
+    -webkit-text-stroke: 1px #ffffff;
+  }
+  
+  .text-outline-hover {
+    -webkit-text-stroke: 1px #00ff99;
   }
 }
 
-body {
-  color: var(--foreground);
-  background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
+.link-underline {
+  @apply relative inline-block;
 }
 
-@layer utilities {
-  .text-balance {
-    text-wrap: balance;
+.link-underline::after {
+  @apply absolute left-0 bottom-0 h-[2px] w-0 bg-accent transition-all duration-300;
+  content: '';
+}
+
+.link-underline:hover::after {
+  @apply w-full;
+}
+
+.cursorGlow {
+  @apply absolute rounded-full pointer-events-none;
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.3) 0%, rgba(0, 212, 255, 0.2) 50%, rgba(128, 0, 128, 0.2) 100%);
+  box-shadow: 0 0 100px 40px rgba(0, 212, 255, 0.5), 0 0 150px 80px rgba(128, 0, 128, 0.5);
+  mix-blend-mode: screen; /* Işık efektini daha parlak göstermek için */
+}
+
+.grid-background::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: 
+    linear-gradient(to right, rgba(255, 255, 255, 0.2) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.2) 1px, transparent 1px);
+  background-size: 80px 80px; /* Kare boyutu artırıldı */
+  opacity: 0.2; /* Yarı şeffaflık */
+  z-index: -1; /* Arka planda kalması için */
+  pointer-events: none; /* Kullanıcı etkileşimini engellemek için */
+}
+
+.grid-background::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100%' height='100%'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='1.2' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%' height='100%' filter='url(%23noise)' opacity='0.05'/%3E%3C/svg%3E");
+  opacity: 0.2; /* Noise efektinin şeffaflığı */
+  pointer-events: none; /* Kullanıcı etkileşimini engellemek için */
+  z-index: -1;
+}
+
+.line {
+  position: absolute;
+  pointer-events: none;
+  animation-timing-function: ease-in-out;
+  animation-iteration-count: infinite;
+}
+
+.line.horizontal {
+  background: linear-gradient(to right, transparent, rgba(255, 255, 255, 0.8), transparent); /* Yatay Parlama */
+}
+
+.line.vertical {
+  background: linear-gradient(to bottom, transparent, rgba(255, 255, 255, 0.8), transparent); /* Dikey Parlama */
+}
+
+@keyframes moveHorizontal {
+  0% {
+    transform: translateX(0);
+    opacity: 0;
   }
+  80% {
+    transform: translateX(300px); /* Daha uzun mesafe */
+    opacity: 1;
+  }
+  100% {
+    transform: translateX(300px);
+    opacity: 0; /* Yavaşça sönme */
+  }
+}
+
+@keyframes moveVertical {
+  0% {
+    transform: translateY(0);
+    opacity: 0;
+  }
+  80% {
+    transform: translateY(300px); /* Daha uzun mesafe */
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(300px);
+    opacity: 0; /* Yavaşça sönme */
+  }
+}
+
+.button-glow {
+  transition: box-shadow 0.3s ease-in-out;
+}
+
+.button-glow:hover {
+  box-shadow: 0 0 20px theme('colors.accent.hover');
+  transition: box-shadow 0.3s ease-in-out;
+}
+
+@keyframes blink {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
+}
+
+.cursor-blink {
+  animation: blink 1s step-end infinite;
 }
