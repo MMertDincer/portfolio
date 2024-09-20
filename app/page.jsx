@@ -1,7 +1,7 @@
 import Photo from "@/components/Photo";
 import Social from "@/components/Social";
 import Stats from "@/components/Stats";
-import TypeWriter from "@/components/TypeWriter";
+import TypeWriter from "../components/TypeWriter";
 import { Button } from "@/components/ui/button";
 import { FiDownload } from "react-icons/fi";
 
