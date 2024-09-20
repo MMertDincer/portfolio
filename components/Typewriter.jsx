@@ -1,7 +1,7 @@
 "use client"
 import { useEffect, useState } from 'react';
 
-const Typewriter = ({ texts }) => {
+const TypeWriter = ({ texts }) => {
   const [textIndex, setTextIndex] = useState(0);
   const [displayedText, setDisplayedText] = useState('');
   const [isDeleting, setIsDeleting] = useState(false);
@@ -44,4 +44,4 @@ const Typewriter = ({ texts }) => {
   );
 };
 
-export default Typewriter;
+export default TypeWriter;
